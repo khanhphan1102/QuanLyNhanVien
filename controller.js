@@ -1,5 +1,5 @@
 
-
+//Chọn Chức Vụ
 function chonChucVu() {
 
     let chonChucVu = document.getElementById("chucvu").value;
@@ -20,4 +20,21 @@ function chonChucVu() {
             break;
     }
     return chucVu;
+}
+
+//Lấy Thông Tin Nhân Viên
+function layThongTinTuForm() {
+
+    let tkNv = document.querySelector("#tknv").value;
+    let hoVaTenNv = document.querySelector("#name").value;
+    let email = document.querySelector("#email").value;
+    let matKhau = document.querySelector("#password").value;
+    let luongCoBan = document.querySelector("#luongCB").value;
+    let ngayLam = document.querySelector("#datepicker").value;
+    let chucVu = chonChucVu();
+    let gioLam = document.querySelector("#gioLam").value;
+
+    let nv = new NhanVien(tkNv, hoVaTenNv, email, matKhau, luongCoBan, ngayLam, chucVu, gioLam);
+
+    return nv;
 }

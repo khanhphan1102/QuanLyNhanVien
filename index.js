@@ -2,39 +2,34 @@
 
 let dsnv = [];
 
-
-dataJson = localStorage.getItem("DSNV");
+//Render dsnv lên table
+var dataJson = localStorage.getItem("DSNV");
 if (dataJson !== null) {
-    dsnv = JSON.parse(dataJson);
+
+    dataRaw = JSON.parse(dataJson);
+    for (let i = 0; i < dataRaw.length; i++) {
+
+        let data = dataRaw[i];
+        let nv = new NhanVien(data.tkNv, data.hoVaTenNv, data.email, data.matKhau, data.luongCoBan, data.ngayLam, data.chucVu, data.gioLam);
+        dsnv.push(nv);
+    }
     renderDsnv();
 }
 
-
+// Thêm Nhân Viên
 function themNv() {
 
-    let tkNv = document.querySelector("#tknv").value;
-    let hoVaTenNv = document.querySelector("#name").value;
-    let email = document.querySelector("#email").value;
-    let matKhau = document.querySelector("#password").value;
-    let luongCoBan = document.querySelector("#luongCB").value;
-    let ngayLam = document.querySelector("#datepicker").value;
-    let chucVu = chonChucVu();
-    let gioLam = document.querySelector("#gioLam").value;
-
-    let nv = new  NhanVien(tkNv,hoVaTenNv,email,matKhau,luongCoBan,ngayLam,chucVu,gioLam);
-
-    // let tongLuong = document.querySelector("#txtDiemLy").value;
-    // let xepLoai = document.querySelector("#txtDiemHoa").value;
-
-    dsnv.unshift(nhanVien);
+    let nv = layThongTinTuForm();
+    dsnv.unshift(nv);
 
     //JSON
-    dataJson = JSON.stringify(dsnv);
+    var dataJson = JSON.stringify(dsnv);
     localStorage.setItem("DSNV", dataJson)
 
     renderDsnv();
 }
 
+//Render Danh Sách Nhân Viên
 function renderDsnv() {
 
     let contentHTML = "";
@@ -47,8 +42,8 @@ function renderDsnv() {
                                    <td>${dsnv[i].email}</td>
                                    <td>${dsnv[i].ngayLam}</td>
                                    <td>${dsnv[i].chucVu}</td>
-                                   <td></td>
-                                   <td>Xếp Loại</td>
+                                   <td>${dsnv[i].tinhTongLuong()}</td>
+                                   <td>${dsnv[i].xepLoai()}</td>
                                </tr>`
         contentHTML += stringsNhanVien;
     }
